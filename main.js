@@ -10,9 +10,9 @@ function executarProjeto()
 
     if(document.getElementsByClassName("mosquito") && document.getElementsByClassName("mosquito").length > 2)
     {
+        //O número gerado para índice será sempre de min até max, já que o valor limite max é exclusivo.
         var lista = [...document.getElementsByClassName("mosquito")];
         let indice = Math.floor(Math.random() * (3 - 0) + 0);
-        console.log(indice);
         lista[indice].remove();
            
     }
@@ -49,7 +49,7 @@ function executarProjeto()
         (array && array.some(condicao))
         {   
             let clicado =  array.filter(condicao);
-            clicado[0].style.backgroundColor = "red";
+            clicado[0].remove();
             contador++;
             // imagem.src = "./assets/sangue2.png";
             audioPontuacao.play();
@@ -66,8 +66,7 @@ function executarProjeto()
     }
 }
 
-
-
+//Gera aleatóriamente uma string representando uma classe, pode retornar tamanho1, tamanho2 ou tamanho3.
 function mudarTamanho()
 {
     let classe = Math.floor(Math.random() * 3);
