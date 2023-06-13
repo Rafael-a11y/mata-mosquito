@@ -31,7 +31,7 @@
             height: 200px;
         }
 
-        #placar
+        #contador
         {
             border : solid black 2px;
             border-radius: 16px;
@@ -41,14 +41,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-
-        #contador
-        {
-            width: auto;
-            height: auto;
             font-size: 32px;
         }
+
 
         body
         {
@@ -72,10 +67,8 @@
     <audio id = "pontuou" src="./Sons/pontos.wav"></audio>
     <audio id = "errou" src="./Sons/colidiu.mp3"></audio>
 
-    <div id="placar">
-        <label id="contador"> 
-        </label>
-    </div>
+    <label id="contador"> </label>
+    
     <script src="./jQuery/code.jquery.com_jquery-3.7.0.min.js"></script>
     <script src="./main.js"></script>
 </body>
