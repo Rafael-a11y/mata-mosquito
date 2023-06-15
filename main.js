@@ -1,11 +1,14 @@
-let quantidadeMosquitosAposClique = 0;
+let conjuntoMoscas = document.getElementsByClassName("mosquito");
+let quantidadeAtualMoscasNaTela = document.getElementsByClassName("mosquito").length;
 let contador = 0;
-let quantidadeMoscasNaTela = 4;
+let quantidadeMoscasPermitidasNaTela = 3;
 let trilhaSonora =  document.getElementById("trilha-sonora");
 let audioPontuacao =  document.getElementById("pontuou");
 let audioErrou = document.getElementById("errou");
+
 trilhaSonora.currentTime = 0;
 trilhaSonora.play();
+
 
 setInterval(function(){executarProjeto();}, 1000);
 
@@ -49,10 +52,10 @@ function gerarMosquito()
 
 function removerMosquito()
 {
-    if(document.getElementsByClassName("mosquito") && document.getElementsByClassName("mosquito").length > (quantidadeMoscasNaTela - 1)
-        || document.getElementsByClassName("mosquito") && document.getElementsByClassName("mosquito").length > (quantidadeMosquitosAposClique - 1))
+    if(conjuntoMoscas && quantidadeAtualMoscasNaTela > (quantidadeMoscasPermitidasNaTela - 1)
+        || conjuntoMoscas && quantidadeAtualMoscasNaTela > (quantidadeAtualMoscasNaTela - 1))
     {
-        var lista = [...document.getElementsByClassName("mosquito")];
+        var lista = [...conjuntoMoscas];
         for(let i = 0; i < lista.length; i++)
         {
             lista[i].remove();
@@ -63,22 +66,20 @@ function removerMosquito()
 function executarProjeto()
 {
     removerMosquito();
-    if(document.getElementsByClassName("mosquito").length == 0)
+    if(quantidadeAtualMoscasNaTela == 0)
     {
-        for(let i = 0; i < quantidadeMoscasNaTela; i ++)
+        for(let i = 0; i < quantidadeMoscasPermitidasNaTela; i ++)
         {
             gerarMosquito();
         }
     }
     else
     {
-        for(let i = 0; i < (quantidadeMoscasNaTela - quantidadeMosquitosAposClique); i ++)
+        for(let i = 0; i < (quantidadeMoscasPermitidasNaTela - quantidadeAtualMoscasNaTela); i ++)
         {
             gerarMosquito();
         }
     }
-    
-    console.log("kkk" + document.getElementsByClassName("mosquito").length);
     
     document.body.onmousedown = function(evento)
     {
@@ -89,7 +90,7 @@ function executarProjeto()
 
         /*Converte o HTMLCollection<Element> retornado por getElementsByClassName("mosquito") em um array de
             Element, ou seja: Element[]*/
-        let array = [...document.getElementsByClassName("mosquito")];
+        let array = [...conjuntoMoscas];
 
         if
         (array && array.some(condicao))
@@ -99,8 +100,6 @@ function executarProjeto()
             contador++;
             audioPontuacao.currentTime = 0;
             audioPontuacao.play();
-            quantidadeMosquitosAposClique = document.getElementsByClassName("mosquito").length;
-            console.log("mosquitos após clique: " + quantidadeMosquitosAposClique);
         }
         else
         {
