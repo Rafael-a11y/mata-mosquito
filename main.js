@@ -1,10 +1,10 @@
-
+let limiteDeMoscasNaTela = 5;
 let contador = 0;
 let trilhaSonora =  document.getElementById("trilha-sonora");
 let audioPontuacao =  document.getElementById("pontuou");
 let audioErrou = document.getElementById("errou");
 
-
+trilhaSonora.currentTime = 0;
 setInterval(function(){executarProjeto();}, 1000);
 
 //Gera aleatóriamente uma string representando uma classe, pode retornar tamanho1, tamanho2 ou tamanho3.
@@ -30,24 +30,32 @@ function gerarMosquito()
     imagem.className = "mosquito " + mudarTamanho();
     imagem.style.top = posicaoAltura + "px";
     imagem.style.left = posicaoLargura + "px";
+    imagem.style.cursor = "pointer";
     imagem.addEventListener("dragstart", function (evento)
     {
         evento.preventDefault();
     });
 
     document.body.appendChild(imagem);
+    
+    
 }
 
 function removerMosquito()
 {
-    if(document.getElementsByClassName("mosquito") && document.getElementsByClassName("mosquito").length > 2)
+    if(document.getElementsByClassName("mosquito") && document.getElementsByClassName("mosquito").length == limiteDeMoscasNaTela)
     {
         //O número gerado para índice será sempre de min até max, já que o valor limite max é exclusivo.
         var lista = [...document.getElementsByClassName("mosquito")];
-        let indice = Math.floor(Math.random() * (3 - 0) + 0);
+        let indice = Math.floor(Math.random() * ((limiteDeMoscasNaTela -1 ) - 0) + 0);
         lista[indice].remove();
            
     }
+}
+
+function definirPontuacao()
+{
+    document.getElementById("contador").textContent = contador;
 }
 
 function executarProjeto()
@@ -55,8 +63,9 @@ function executarProjeto()
     trilhaSonora.play();
     removerMosquito();
     gerarMosquito();
+    definirPontuacao();
     
-    document.body.onclick = function(evento)
+    document.body.onmousedown = function(evento)
     {
         let condicao = (mosca) =>
             ((evento.clientX > mosca.x) && (evento.clientX < (mosca.x + mosca.width)))
@@ -81,9 +90,10 @@ function executarProjeto()
             audioPontuacao.play();
             if(array.length == 1)
             {
-                gerarMosquito();
-                gerarMosquito();
-                gerarMosquito();
+                for(let i = 0; i < limiteDeMoscasNaTela; i++)
+                {
+                    gerarMosquito();
+                }
             }
         }
         else
@@ -95,6 +105,6 @@ function executarProjeto()
                 audioErrou.play();
             } 
         }
-        document.getElementById("contador").textContent = contador;
+        definirPontuacao();
     }
 }
