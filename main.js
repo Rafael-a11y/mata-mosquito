@@ -1,11 +1,19 @@
-let limiteDeMoscasNaTela = 5;
+let quantidadeMosquitosAposClique = 0;
 let contador = 0;
+let quantidadeMoscasNaTela = 4;
 let trilhaSonora =  document.getElementById("trilha-sonora");
 let audioPontuacao =  document.getElementById("pontuou");
 let audioErrou = document.getElementById("errou");
-
 trilhaSonora.currentTime = 0;
+trilhaSonora.play();
+
 setInterval(function(){executarProjeto();}, 1000);
+
+function definirPlacar()
+{
+    document.getElementById("contador").textContent = contador;
+}
+definirPlacar();
 
 //Gera aleatóriamente uma string representando uma classe, pode retornar tamanho1, tamanho2 ou tamanho3.
 function mudarTamanho()
@@ -37,33 +45,40 @@ function gerarMosquito()
     });
 
     document.body.appendChild(imagem);
-    
-    
 }
 
 function removerMosquito()
 {
-    if(document.getElementsByClassName("mosquito") && document.getElementsByClassName("mosquito").length == limiteDeMoscasNaTela)
+    if(document.getElementsByClassName("mosquito") && document.getElementsByClassName("mosquito").length > (quantidadeMoscasNaTela - 1)
+        || document.getElementsByClassName("mosquito") && document.getElementsByClassName("mosquito").length > (quantidadeMosquitosAposClique - 1))
     {
-        //O número gerado para índice será sempre de min até max, já que o valor limite max é exclusivo.
         var lista = [...document.getElementsByClassName("mosquito")];
-        let indice = Math.floor(Math.random() * ((limiteDeMoscasNaTela -1 ) - 0) + 0);
-        lista[indice].remove();
-           
+        for(let i = 0; i < lista.length; i++)
+        {
+            lista[i].remove();
+        }
     }
-}
-
-function definirPontuacao()
-{
-    document.getElementById("contador").textContent = contador;
 }
 
 function executarProjeto()
 {
-    trilhaSonora.play();
     removerMosquito();
-    gerarMosquito();
-    definirPontuacao();
+    if(document.getElementsByClassName("mosquito").length == 0)
+    {
+        for(let i = 0; i < quantidadeMoscasNaTela; i ++)
+        {
+            gerarMosquito();
+        }
+    }
+    else
+    {
+        for(let i = 0; i < (quantidadeMoscasNaTela - quantidadeMosquitosAposClique); i ++)
+        {
+            gerarMosquito();
+        }
+    }
+    
+    console.log("kkk" + document.getElementsByClassName("mosquito").length);
     
     document.body.onmousedown = function(evento)
     {
@@ -72,29 +87,20 @@ function executarProjeto()
             && 
             ((evento.clientY > mosca.y) && (evento.clientY < (mosca.y + mosca.height)));
 
-        let clique = (mosca) => mosca.setAttribute("data-click", "clicou");
-
         /*Converte o HTMLCollection<Element> retornado por getElementsByClassName("mosquito") em um array de
             Element, ou seja: Element[]*/
         let array = [...document.getElementsByClassName("mosquito")];
 
-        //trilhaSonora.play();
         if
         (array && array.some(condicao))
         {   
             let clicado =  array.some(condicao)? array.filter(condicao) : null;
             clicado[0].remove();
-            console.log("Length após o clique: " + array.length);
             contador++;
             audioPontuacao.currentTime = 0;
             audioPontuacao.play();
-            if(array.length == 1)
-            {
-                for(let i = 0; i < limiteDeMoscasNaTela; i++)
-                {
-                    gerarMosquito();
-                }
-            }
+            quantidadeMosquitosAposClique = document.getElementsByClassName("mosquito").length;
+            console.log("mosquitos após clique: " + quantidadeMosquitosAposClique);
         }
         else
         {
@@ -105,6 +111,6 @@ function executarProjeto()
                 audioErrou.play();
             } 
         }
-        definirPontuacao();
+        definirPlacar();
     }
 }
