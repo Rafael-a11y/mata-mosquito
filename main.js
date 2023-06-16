@@ -1,7 +1,7 @@
 let conjuntoMoscas = document.getElementsByClassName("mosquito");
 let quantidadeAtualMoscasNaTela = document.getElementsByClassName("mosquito").length;
 let contador = 0;
-let quantidadeMoscasPermitidasNaTela = 3;
+let quantidadeMoscasPermitidasNaTela = 10;
 let trilhaSonora =  document.getElementById("trilha-sonora");
 let audioPontuacao =  document.getElementById("pontuou");
 let audioErrou = document.getElementById("errou");
@@ -10,7 +10,7 @@ trilhaSonora.currentTime = 0;
 trilhaSonora.play();
 
 
-setInterval(function(){executarProjeto();}, 1000);
+setInterval(function(){executarProjeto();}, 2000);
 
 function definirPlacar()
 {
