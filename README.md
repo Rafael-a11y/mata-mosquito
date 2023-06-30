@@ -8,7 +8,7 @@
   <li><strong>Funcionalidade 1: </strong>Clique com mouse em cima das  moscas para eliminá-las</li>
 </ul>
 
-[mata-mosquito.webm](https://github.com/Rafael-a11y/mata-mosquito/assets/63820646/98229c24-f563-422f-92ba-93a4005ea370)
+[mata-mosquito.webm](https://github.com/Rafael-a11y/mata-mosquito/assets/63820646/98229c24-f563-422f-92ba-93a4005ea370#vitrinedev)
 
 # 📁 Acesso ao projeto
 
