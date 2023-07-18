@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mata mosquito</title>
     <style>
+
+        *
+        {
+            margin: 0;
+            padding: 0;
+        }
         .mosquito
         {
             position: absolute;
@@ -54,9 +60,40 @@
             background-size: 100% 100%;
             overflow-y: hidden;
             overflow-x: hidden;
-            -webkit-user-select: none;
             user-select: none;
+            -webkit-touch-callout: none; /* Para dispositivos iOS */
+            -webkit-user-select: none; /* Para navegadores WebKit (Chrome, Safari) */
+            -moz-user-select: none; /* Para navegadores Mozilla (Firefox) */
+            -ms-user-select: none; /* Para navegadores Microsoft (IE/Edge) */
             /* cursor: url(./assets/raquete-marrom-sem-fundo-redimensionada.png), auto; */
+        }
+
+        @media(max-width: 820px)
+        {
+            .mosquito
+            {
+                width: 60px;
+                height: 60px;
+                
+            }
+
+            .tamanho1
+            {
+                width: 60px;
+                height: 60px;
+            }
+
+            .tamanho2
+            {
+                width: 85px;
+                height: 85px;
+            }
+
+            .tamanho3
+            {
+                width: 110px;
+                height: 110px;
+            }
         }
 
         /* audio
@@ -65,7 +102,7 @@
         } */
     </style>
 </head>
-<body>
+<body class="corpo">
     <audio id = "trilha-sonora" src="./Sons/8-bit-arcade.mp3" loop preload="auto" autoplay></audio>
     <audio id = "pontuou" src="./Sons/pontos.wav"></audio>
     <audio id = "errou" src="./Sons/colidiu.mp3"></audio>

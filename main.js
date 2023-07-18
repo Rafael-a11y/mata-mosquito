@@ -1,7 +1,7 @@
 let conjuntoMoscas = document.getElementsByClassName("mosquito");
 let quantidadeAtualMoscasNaTela = document.getElementsByClassName("mosquito").length;
 let contador = 0;
-let quantidadeMoscasPermitidasNaTela = 10;
+let quantidadeMoscasPermitidasNaTela = (window.matchMedia("(max-width:820px)").matches) ? 20 : 10;
 let trilhaSonora =  document.getElementById("trilha-sonora");
 let audioPontuacao =  document.getElementById("pontuou");
 let audioErrou = document.getElementById("errou");
@@ -10,7 +10,7 @@ trilhaSonora.currentTime = 0;
 trilhaSonora.play();
 
 
-setInterval(function(){executarProjeto();}, 2000);
+setInterval(function(){executarProjeto();}, (window.matchMedia("(max-width:820px)").matches? 2000 : 3000));
 
 function definirPlacar()
 {
@@ -63,6 +63,28 @@ function removerMosquito()
     }
 }
 
+function clique(interacao)
+{
+    interacao.preventDefault();
+    let alvo = interacao.target;
+    if(alvo.classList[0] === "mosquito")
+    {
+        console.log(alvo.classList[0]);
+        alvo.remove();
+        contador++;
+        audioPontuacao.currentTime = 0;
+        audioPontuacao.play();            
+    }
+    else
+    {
+        if(contador > 0) contador--;
+        console.log(alvo.classList[0]);
+        audioErrou.currentTime = 0;
+        audioErrou.play();  
+    }
+    definirPlacar();
+}
+
 function executarProjeto()
 {
     removerMosquito();
@@ -72,6 +94,8 @@ function executarProjeto()
         {
             gerarMosquito();
         }
+        console.log(quantidadeAtualMoscasNaTela);
+        console.log(quantidadeMoscasPermitidasNaTela);
     }
     else
     {
@@ -80,36 +104,18 @@ function executarProjeto()
             gerarMosquito();
         }
     }
-    
-    document.body.onmousedown = function(evento)
+    if(window.matchMedia("(max-width:820px)").matches)
     {
-        let condicao = (mosca) =>
-            ((evento.clientX > mosca.x) && (evento.clientX < (mosca.x + mosca.width)))
-            && 
-            ((evento.clientY > mosca.y) && (evento.clientY < (mosca.y + mosca.height)));
-
-        /*Converte o HTMLCollection<Element> retornado por getElementsByClassName("mosquito") em um array de
-            Element, ou seja: Element[]*/
-        let array = [...conjuntoMoscas];
-
-        if
-        (array && array.some(condicao))
-        {   
-            let clicado =  array.some(condicao)? array.filter(condicao) : null;
-            clicado[0].remove();
-            contador++;
-            audioPontuacao.currentTime = 0;
-            audioPontuacao.play();
-        }
-        else
+        document.body.addEventListener("touchstart", function(evento)
         {
-            if(contador > 0)
-            {
-                contador--;
-                audioErrou.currentTime = 0;
-                audioErrou.play();
-            } 
+            clique(evento);
+        },false);
+    }
+    else
+    {
+        document.body.onclick = function(evento)
+        {
+            clique(evento);
         }
-        definirPlacar();
     }
 }
