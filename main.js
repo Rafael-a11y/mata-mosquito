@@ -94,8 +94,6 @@ function executarProjeto()
         {
             gerarMosquito();
         }
-        console.log(quantidadeAtualMoscasNaTela);
-        console.log(quantidadeMoscasPermitidasNaTela);
     }
     else
     {
