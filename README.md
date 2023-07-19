@@ -1,5 +1,8 @@
 <h1 align = "center">Mata Mosquito</h1>
-<p>Projeto desenvolvido para exercitar meus aprendizados com tecnologias Front-end.</p>
+
+![Mata mosquito](https://github.com/Rafael-a11y/mata-mosquito/assets/63820646/87a3df96-e81c-4e44-af23-efc2270931f1#vitrinedev)
+
+<p>Projeto desenvolvido para exercitar meus aprendizados com tecnologias Front-end. O projeto é <strong>responsivo</strong> e abre tanto em telas de computadores quanto de smartphones.</p>
 <h4>
   ✔🚧 Projeto concluído 🚧
 </h4>
@@ -8,7 +11,7 @@
   <li><strong>Funcionalidade 1: </strong>Clique com mouse em cima das  moscas para eliminá-las</li>
 </ul>
 
-[mata-mosquito.webm](https://github.com/Rafael-a11y/mata-mosquito/assets/63820646/98229c24-f563-422f-92ba-93a4005ea370#vitrinedev)
+[mata-mosquito.webm](https://github.com/Rafael-a11y/mata-mosquito/assets/63820646/98229c24-f563-422f-92ba-93a4005ea370)
 
 # 📁 Acesso ao projeto
 
@@ -17,6 +20,9 @@
 # 🛠️ Abrir e rodar o projeto
 
 **Descompacte o projeto, e depois entre na pasta do projeto, selecione o arquivo html index e clique com o clique direito do mouse, depois clique em 'abrir com' e selecione o navegador de seua preferência**
+
+# 🚀 Acessar de forma online o projeto 🚀
+<p><strong>Você pode acessar o game <a href="https://mata-mosquito-eight.vercel.app/" target="_blank">clicando aqui</a>.</strong></p>
 
 # ✔️ tecnologias usadas
 <ul>
