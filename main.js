@@ -1,22 +1,42 @@
 let conjuntoMoscas = document.getElementsByClassName("mosquito");
 let quantidadeAtualMoscasNaTela = document.getElementsByClassName("mosquito").length;
-let contador = 0;
+let contador = 1;
+const placar = document.getElementById("contador");
 let quantidadeMoscasPermitidasNaTela = (window.matchMedia("(max-width:820px)").matches) ? 20 : 10;
 let trilhaSonora =  document.getElementById("trilha-sonora");
 let audioPontuacao =  document.getElementById("pontuou");
 let audioErrou = document.getElementById("errou");
+const botaoInicio = document.querySelector("#botao-inicio");
+let idIntervalo;
 
-trilhaSonora.currentTime = 0;
-trilhaSonora.play();
 
+botaoInicio.addEventListener("mouseover", ()=>
+{
+    botaoInicio.style.animationName = "aumentando-tamanho";
+});
 
-setInterval(function(){executarProjeto();}, (window.matchMedia("(max-width:820px)").matches? 2000 : 3000));
+botaoInicio.addEventListener("mouseout", ()=>
+{
+    botaoInicio.style.animationName = "diminuindo-tamanho";
+});
+
+botaoInicio.addEventListener("click", ()=>
+{
+    botaoInicio.style.display = "none";
+    trilhaSonora.play();
+    executarProjeto();
+    idIntervalo = setInterval(function(){executarProjeto();}, (window.matchMedia("(max-width:820px)").matches? 2000 : 3000));
+});
 
 function definirPlacar()
 {
-    document.getElementById("contador").textContent = contador;
+    placar.textContent = contador;
+    if(contador <= -1 || contador >= 20)
+    {
+        finalizarProjeto();
+    }
 }
-definirPlacar();
+
 
 //Gera aleatóriamente uma string representando uma classe, pode retornar tamanho1, tamanho2 ou tamanho3.
 function mudarTamanho()
@@ -77,7 +97,7 @@ function clique(interacao)
     }
     else
     {
-        if(contador > 0) contador--;
+        if(contador > -1) contador--;
         console.log(alvo.classList[0]);
         audioErrou.currentTime = 0;
         audioErrou.play();  
@@ -87,6 +107,7 @@ function clique(interacao)
 
 function executarProjeto()
 {
+    placar.style.display = "flex";
     removerMosquito();
     if(quantidadeAtualMoscasNaTela == 0)
     {
@@ -116,4 +137,16 @@ function executarProjeto()
             clique(evento);
         }
     }
+}
+
+function finalizarProjeto()
+{
+    clearInterval(idIntervalo);
+    removerMosquito();
+    trilhaSonora.pause();
+    botaoInicio.style.display = "block";
+    placar.style.display = "none";
+    contador = 1;
+    trilhaSonora.currentTime = 0;
+    document.body.onclick = null;
 }
